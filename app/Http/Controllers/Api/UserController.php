@@ -52,9 +52,4 @@ class UserController extends Controller
         $user->delete();
         return new UserResource($user);
     }
-//
-//    public function passwordReset(Request $request, User $user)
-//    {
-//
-//    }
 }

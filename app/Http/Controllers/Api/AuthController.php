@@ -52,4 +52,20 @@ class AuthController extends Controller
     public function user() {
         return new UserResource(auth()->user());
     }
+
+    public function passwordReset(Request $request, string $mail)
+    {
+        $user = User::where('email', $mail)->FirstOrFail();
+
+        $validated = $request->validate([
+            'password' => 'required|min:8|confirmed',
+            'password_confirmation' => 'required',
+        ]);
+
+        $user->update(['password' => $validated['password']]);
+
+        return response()->json([
+            'data' => 'Parole veiksmīgi nomainīta'
+        ]);
+    }
 }
