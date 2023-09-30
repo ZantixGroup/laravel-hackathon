@@ -52,4 +52,53 @@ class UserController extends Controller
         $user->delete();
         return new UserResource($user);
     }
+
+    public function point_assign(Request $request)
+    {
+        $user = auth()->user();
+
+        $request->validate([
+            'name' => 'required',
+            'points' => 'required|integer',
+        ]);
+
+        if ($request['name'] == 's_level')
+        {
+            $user->s_level = $user->s_level + $request['points'];
+            $user->update([
+                's_level' => $user->s_level,
+            ]);
+        }
+
+        if ($request['name'] == 't_level')
+        {
+            $user->t_level = $user->t_level + $request['points'];
+            $user->update([
+                't_level' => $user->t_level,
+            ]);
+        }
+
+        if ($request['name'] == 'e_level')
+        {
+            $user->e_level = $user->e_level + $request['points'];
+            $user->update([
+                'e_level' => $user->e_level,
+            ]);
+        }
+
+        if ($request['name'] == 'm_level')
+        {
+            $user->m_level = $user->m_level + $request['points'];
+            $user->update([
+                'm_level' => $user->m_level,
+            ]);
+        }
+
+        $user->update([
+            'score' => $user->s_level + $user->t_level + $user->e_level + $user->m_level,
+        ]);
+
+        return new UserResource($user);
+    }
+
 }

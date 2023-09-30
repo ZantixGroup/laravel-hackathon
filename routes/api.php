@@ -24,4 +24,5 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/me', [AuthController::class, 'user']);
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::resource('/users',UserController::class);
+    Route::post('/point_assign',[UserController::class, 'point_assign']);
 });
