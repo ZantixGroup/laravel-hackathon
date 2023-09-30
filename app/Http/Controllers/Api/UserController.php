@@ -57,46 +57,15 @@ class UserController extends Controller
     {
         $user = auth()->user();
 
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required',
             'points' => 'required|integer',
         ]);
 
-        if ($request['name'] == 's_level')
-        {
-            $user->s_level = $user->s_level + $request['points'];
-            $user->update([
-                's_level' => $user->s_level,
-            ]);
-        }
-
-        if ($request['name'] == 't_level')
-        {
-            $user->t_level = $user->t_level + $request['points'];
-            $user->update([
-                't_level' => $user->t_level,
-            ]);
-        }
-
-        if ($request['name'] == 'e_level')
-        {
-            $user->e_level = $user->e_level + $request['points'];
-            $user->update([
-                'e_level' => $user->e_level,
-            ]);
-        }
-
-        if ($request['name'] == 'm_level')
-        {
-            $user->m_level = $user->m_level + $request['points'];
-            $user->update([
-                'm_level' => $user->m_level,
-            ]);
-        }
-
-        $user->update([
-            'score' => $user->s_level + $user->t_level + $user->e_level + $user->m_level,
-        ]);
+        $str = $validated['name'];
+        $user->$str += $validated['points'];
+        $user->score = $user->s_level + $user->t_level + $user->e_level + $user->m_level;
+        $user->save();
 
         return new UserResource($user);
     }
