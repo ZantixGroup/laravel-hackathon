@@ -65,7 +65,7 @@ class AuthController extends Controller
         $user->update(['password' => $validated['password']]);
 
         return response()->json([
-            'data' => 'Parole veiksmīgi nomainīta'
+            'data' => 'Parole veiksmīgi nomainīta',
         ]);
     }
 }
