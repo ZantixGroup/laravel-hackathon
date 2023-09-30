@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Http\Resources\LeaderBoardResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::all());
+        return LeaderBoardResource::collection(User::orderBy('score', 'desc')->get());
     }
 
     /**
@@ -52,4 +53,22 @@ class UserController extends Controller
         $user->delete();
         return new UserResource($user);
     }
+
+    public function point_assign(Request $request)
+    {
+        $user = auth()->user();
+
+        $validated = $request->validate([
+            'name' => 'required',
+            'points' => 'required|integer',
+        ]);
+
+        $str = $validated['name'];
+        $user->$str += $validated['points'];
+        $user->score = $user->s_level + $user->t_level + $user->e_level + $user->m_level;
+        $user->save();
+
+        return new UserResource($user);
+    }
+
 }
