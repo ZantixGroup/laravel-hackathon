@@ -28,7 +28,7 @@ class UserFactory extends Factory
             'e_level' => random_int(0,10),
             'm_level' => random_int(0,10),
             'score' => random_int(0,150),
-            'avatar' => random_int(0,10),
+            'avatar' => random_int(1,4),
             'remember_token' => Str::random(10),
         ];
     }
