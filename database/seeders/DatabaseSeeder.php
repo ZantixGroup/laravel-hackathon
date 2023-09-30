@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             't_level' => 2,
             'e_level' => 3,
             'm_level' => 4,
-            'score' => 50,
+            'score' => 141,
             'avatar' => 2,
          ]);
 
