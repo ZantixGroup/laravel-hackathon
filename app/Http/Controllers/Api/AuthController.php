@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -10,8 +11,9 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function register(Request $request) {
+    public function register(UserRequest $request) {
         $validated = $request->validate([
+            'avatar' => 'required|integer',
             'name' => 'required|max:255',
             'surname' => 'required|max:255',
             'email' => 'required|unique:users,email|email|max:255',
@@ -38,7 +40,7 @@ class AuthController extends Controller
         }
 
         return response()->json([
-            'error' => 'Unauthenticated'
+            'error' => 'Unauthenticated',
         ], 401);
     }
 
@@ -65,7 +67,7 @@ class AuthController extends Controller
         $user->update(['password' => $validated['password']]);
 
         return response()->json([
-            'data' => 'Parole veiksmīgi nomainīta'
+            'data' => 'Parole veiksmīgi nomainīta',
         ]);
     }
 }
