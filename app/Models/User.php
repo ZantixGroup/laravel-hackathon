@@ -22,8 +22,12 @@ class User extends Authenticatable
         'surname',
         'email',
         'password',
-        'level',
-        'points',
+        's_level',
+        't_level',
+        'e_level',
+        'm_level',
+        'score',
+        'avatar',
     ];
 
     /**

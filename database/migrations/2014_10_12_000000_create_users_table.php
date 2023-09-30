@@ -17,8 +17,12 @@ return new class extends Migration
             $table->string('surname');
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('level')->default(0);
-            $table->integer('points')->default(0);
+            $table->integer('s_level')->default(0);
+            $table->integer('t_level')->default(0);
+            $table->integer('e_level')->default(0);
+            $table->integer('m_level')->default(0);
+            $table->integer('score')->default(0);
+            $table->integer('avatar')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
