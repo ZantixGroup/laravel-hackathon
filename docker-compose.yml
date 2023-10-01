@@ -8,6 +8,9 @@ services:
         image: sail-8.2/app
         extra_hosts:
             - 'host.docker.internal:host-gateway'
+        ports:
+            - '${APP_PORT:-80}:80'
+            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
         environment:
             WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1
@@ -22,6 +25,8 @@ services:
             - pgsql
     pgsql:
         image: 'postgres:15'
+        ports:
+            - '${FORWARD_DB_PORT:-5432}:5432'
         environment:
             PGPASSWORD: '${DB_PASSWORD:-secret}'
             POSTGRES_DB: '${DB_DATABASE}'
@@ -45,8 +50,7 @@ services:
             timeout: 5s
 networks:
     sail:
-        name: internal-network
-        external: true
+        driver: bridge
 volumes:
     sail-pgsql:
         driver: local

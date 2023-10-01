@@ -44,6 +44,15 @@ class AuthController extends Controller
         ], 401);
     }
 
+    public function selfEdit(UserRequest $request) {
+        $validated = $request->validated();
+
+        $user = auth()->user();
+        $user->update($validated);
+
+        return new UserResource($user);
+    }
+
     public function logout() {
         auth()->user()->token()->revoke();
         return response()->json([
